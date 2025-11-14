@@ -21,14 +21,14 @@ public class Attempts {
         }
     }
 
-    private static boolean isPositive(int number) {
-        return number > 0;
-    }
-
     private void validatePositive(int number) {
         if (!isPositive(number)) {
             throw new IllegalArgumentException(ERR_NUMBER_POSITIVE);
         }
+    }
+
+    private static boolean isPositive(int number) {
+        return number > 0;
     }
 
     public int getNumber() {
