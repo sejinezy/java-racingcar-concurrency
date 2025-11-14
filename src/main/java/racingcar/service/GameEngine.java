@@ -2,18 +2,20 @@ package racingcar.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 import racingcar.domain.Attempts;
 import racingcar.domain.CarPosition;
-import racingcar.domain.RacingTurnRunner;
+import racingcar.domain.ConcurrentTurnRunner;
 import racingcar.application.dto.RoundResult;
 
 public class GameEngine {
 
-    public List<RoundResult> runAll(Attempts attempts, RacingTurnRunner racingGame) {
-        List<RoundResult> gameResults = new ArrayList<>();
+    public List<RoundResult> runAll(Attempts attempts, ConcurrentTurnRunner concurrentTurnRunner)
+            throws ExecutionException, InterruptedException {
 
+        List<RoundResult> gameResults = new ArrayList<>();
         for (int i = 0; i < attempts.getNumber(); i++) {
-            gameResults.add(racingGame.runOneTime());
+            gameResults.add(concurrentTurnRunner.concurrentTurnRunner());
         }
         return gameResults;
     }
