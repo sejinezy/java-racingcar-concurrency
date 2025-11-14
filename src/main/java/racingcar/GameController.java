@@ -3,6 +3,7 @@ package racingcar;
 import static racingcar.view.InputParser.*;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 import racingcar.application.StartRacingUseCase;
 import racingcar.application.dto.RoundResult;
 import racingcar.view.InputView;
@@ -21,7 +22,7 @@ public class GameController {
         this.outputView = outputView;
     }
 
-    public void run() {
+    public void run() throws ExecutionException, InterruptedException {
         List<String> carNames = parseValidatedCarNames(inputView.carNamesReadLine());
         String attemptsInput = validateBlank(inputView.numberReadLine());
 
