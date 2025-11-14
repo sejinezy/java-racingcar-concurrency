@@ -1,45 +1,30 @@
 package racingcar.domain;
 
-import java.util.ArrayList;
-import java.util.List;
-import racingcar.application.dto.RoundResult;
+
+import java.util.concurrent.Callable;
 import racingcar.domain.port.PickRandomValue;
 
-public class RacingTurnRunner {
+public class RacingTurnRunner implements Callable<CarPosition> {
 
     private static final int MOVE_THRESHOLD = 4;
 
-    private final ParticipatingCars participatingCars;
+    private final Car car;
     private final PickRandomValue pickRandomValue;
 
-    public RacingTurnRunner(ParticipatingCars participatingCars, PickRandomValue pickRandomValue) {
-        this.participatingCars = participatingCars;
+
+    public RacingTurnRunner(Car car,PickRandomValue pickRandomValue) {
+        this.car = car;
         this.pickRandomValue = pickRandomValue;
     }
 
-    public RoundResult runOneTime() {
-        for (Car car : participatingCars.getCars()) {
-            operate(car);
-        }
-        return resultOneTime();
-    }
 
-    private void operate(Car car) {
+    @Override
+    public CarPosition call() {
         int randomValue = pickRandomValue.pickRandomNumber();
 
         if (randomValue >= MOVE_THRESHOLD) {
             car.moveForward();
         }
+        return new CarPosition(car.getName(), car.getPosition());
     }
-
-    private RoundResult resultOneTime() {
-        List<CarPosition> gameResult = new ArrayList<>();
-
-        for (Car car : participatingCars.getCars()) {
-            CarPosition carPosition = new CarPosition(car.getName(), car.getPosition());
-            gameResult.add(carPosition);
-        }
-        return new RoundResult(gameResult);
-    }
-
 }
