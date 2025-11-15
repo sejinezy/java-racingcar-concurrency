@@ -6,17 +6,17 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import racingcar.application.dto.RoundResult;
 import racingcar.domain.Attempts;
-import racingcar.domain.ConcurrentTurnRunner;
+import racingcar.domain.multithread.ConcurrentTurnRunner;
 import racingcar.domain.ParticipatingCars;
-import racingcar.service.GameEngine;
+import racingcar.service.multithread.MultiThreadGameEngine;
 import racingcar.domain.port.PickRandomValue;
 
 public class StartRacingUseCase {
 
     private final PickRandomValue pickRandomValue;
-    private final GameEngine gameEngine;
+    private final MultiThreadGameEngine gameEngine;
 
-    public StartRacingUseCase(PickRandomValue pickRandomValue, GameEngine gameEngine) {
+    public StartRacingUseCase(PickRandomValue pickRandomValue, MultiThreadGameEngine gameEngine) {
         this.pickRandomValue = pickRandomValue;
         this.gameEngine = gameEngine;
     }
