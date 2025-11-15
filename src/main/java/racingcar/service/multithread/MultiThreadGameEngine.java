@@ -1,14 +1,14 @@
-package racingcar.service;
+package racingcar.service.multithread;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import racingcar.domain.Attempts;
 import racingcar.domain.CarPosition;
-import racingcar.domain.ConcurrentTurnRunner;
+import racingcar.domain.multithread.ConcurrentTurnRunner;
 import racingcar.application.dto.RoundResult;
 
-public class GameEngine {
+public class MultiThreadGameEngine {
 
     public List<RoundResult> runAll(Attempts attempts, ConcurrentTurnRunner concurrentTurnRunner)
             throws ExecutionException, InterruptedException {
