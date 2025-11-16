@@ -18,17 +18,18 @@ public class RacingBenchmark {
     private static final int MEASURE = 5;
 
     public static void main(String[] args) throws ExecutionException, InterruptedException {
-        List<String> carNames = List.of("car1", "car2", "car3", "car4", "car5", "car6", "car7", "car8", "car9", "car10",
-                "car11", "car12", "car13", "car14", "car15", "car16",
-                "car17", "car18", "car19", "car20","car21","car22","car23","car24");
+        List<String> carNames = List.of("car1", "car2", "car3", "car4", "car5", "car6", "car7", "car8",
+                "car9", "car10", "car11", "car12", "car13", "car14", "car15", "car16",
+                "car17", "car18", "car19", "car20", "car21", "car22", "car23", "car24",
+                "car25", "car26", "car27", "car28", "car29", "car30", "car31", "car32");
 
-        Attempts attempts = new Attempts("100");
+        Attempts attempts = new Attempts("150");
 
         ParticipatingCars singleCars = new ParticipatingCars(carNames);
         ParticipatingCars concurrentCars = new ParticipatingCars(carNames);
 
-        StrategyAi singleAi = new StrategyAi(2000);
-        StrategyAi multiAi = new StrategyAi(2000);
+        StrategyAi singleAi = new StrategyAi(5000);
+        StrategyAi multiAi = new StrategyAi(5000);
 
         // 싱글 스레드 벤치 마크
         long singleAvg = benchmarkSingleThread(singleCars, attempts, singleAi);
