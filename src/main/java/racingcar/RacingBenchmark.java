@@ -20,15 +20,15 @@ public class RacingBenchmark {
     public static void main(String[] args) throws ExecutionException, InterruptedException {
         List<String> carNames = List.of("car1", "car2", "car3", "car4", "car5", "car6", "car7", "car8", "car9", "car10",
                 "car11", "car12", "car13", "car14", "car15", "car16",
-                "car17", "car18", "car19", "car20");
+                "car17", "car18", "car19", "car20","car21","car22","car23","car24");
 
-        Attempts attempts = new Attempts("50");
+        Attempts attempts = new Attempts("100");
 
         ParticipatingCars singleCars = new ParticipatingCars(carNames);
         ParticipatingCars concurrentCars = new ParticipatingCars(carNames);
 
-        StrategyAi singleAi = new StrategyAi(1000);
-        StrategyAi multiAi = new StrategyAi(1000);
+        StrategyAi singleAi = new StrategyAi(2000);
+        StrategyAi multiAi = new StrategyAi(2000);
 
         // 싱글 스레드 벤치 마크
         long singleAvg = benchmarkSingleThread(singleCars, attempts, singleAi);
