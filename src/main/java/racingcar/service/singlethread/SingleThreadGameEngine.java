@@ -13,7 +13,7 @@ public class SingleThreadGameEngine {
         List<RoundResult> gameResults = new ArrayList<>();
 
         for (int i = 0; i < attempts.getNumber(); i++) {
-            gameResults.add(racingGame.runOneTime());
+            gameResults.add(racingGame.runOneTime(attempts.getNumber()-i));
         }
         return gameResults;
     }
