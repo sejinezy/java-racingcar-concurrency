@@ -10,29 +10,28 @@ import racingcar.application.dto.RoundResult;
 import racingcar.domain.Car;
 import racingcar.domain.CarPosition;
 import racingcar.domain.ParticipatingCars;
-import racingcar.domain.port.PickRandomValue;
+import racingcar.domain.strategy.StrategyAi;
 
 public class ConcurrentTurnRunner {
 
-    private final PickRandomValue pickRandomValue;
-    private final ParticipatingCars participatingCars;
+    private final StrategyAi ai;
+    private final ParticipatingCars cars;
     private final ExecutorService es;
 
-    public ConcurrentTurnRunner(PickRandomValue pickRandomValue, ParticipatingCars participatingCars,
-                                ExecutorService es) {
-        this.pickRandomValue = pickRandomValue;
-        this.participatingCars = participatingCars;
+    public ConcurrentTurnRunner(StrategyAi ai, ParticipatingCars cars, ExecutorService es) {
+        this.ai = ai;
+        this.cars = cars;
         this.es = es;
     }
 
 
-    public RoundResult concurrentTurnRunner()
+    public RoundResult concurrentTurnRunner(int remainTurns)
             throws InterruptedException, ExecutionException {
 
         List<Callable<CarPosition>> tasks = new ArrayList<>();
 
-        for (Car car : participatingCars.getCars()) {
-            RacingTurnRunner turnRunner = new RacingTurnRunner(car, pickRandomValue);
+        for (Car car : cars.getCars()) {
+            RacingTurnRunner turnRunner = new RacingTurnRunner(car, ai, cars, remainTurns);
             tasks.add(turnRunner);
         }
 
