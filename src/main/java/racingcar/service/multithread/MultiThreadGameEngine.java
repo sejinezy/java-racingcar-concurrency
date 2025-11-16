@@ -15,7 +15,7 @@ public class MultiThreadGameEngine {
 
         List<RoundResult> gameResults = new ArrayList<>();
         for (int i = 0; i < attempts.getNumber(); i++) {
-            gameResults.add(concurrentTurnRunner.concurrentTurnRunner());
+            gameResults.add(concurrentTurnRunner.concurrentTurnRunner(attempts.getNumber()-i));
         }
         return gameResults;
     }
