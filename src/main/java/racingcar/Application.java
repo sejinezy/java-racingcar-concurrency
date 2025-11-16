@@ -12,7 +12,7 @@ public class Application {
     public static void main(String[] args) {
 
         InputView inputView = new InputView();
-        StrategyAi ai = new StrategyAi(1000);
+        StrategyAi ai = new StrategyAi(2000);
         MultiThreadGameEngine gameEngine = new MultiThreadGameEngine();
         OutputView outputView = new OutputView();
         StartRacingUseCase startRacingUseCase = new StartRacingUseCase(ai, gameEngine);
