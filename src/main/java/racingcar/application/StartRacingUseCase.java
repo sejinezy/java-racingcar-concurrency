@@ -8,26 +8,27 @@ import racingcar.application.dto.RoundResult;
 import racingcar.domain.Attempts;
 import racingcar.domain.multithread.ConcurrentTurnRunner;
 import racingcar.domain.ParticipatingCars;
+import racingcar.domain.strategy.StrategyAi;
 import racingcar.service.multithread.MultiThreadGameEngine;
-import racingcar.domain.port.PickRandomValue;
 
 public class StartRacingUseCase {
 
-    private final PickRandomValue pickRandomValue;
+    private final StrategyAi ai;
     private final MultiThreadGameEngine gameEngine;
 
-    public StartRacingUseCase(PickRandomValue pickRandomValue, MultiThreadGameEngine gameEngine) {
-        this.pickRandomValue = pickRandomValue;
+    public StartRacingUseCase(StrategyAi ai, MultiThreadGameEngine gameEngine) {
+        this.ai = ai;
         this.gameEngine = gameEngine;
     }
+
 
     public List<RoundResult> execute(List<String> carNames, String attemptsInput)
             throws InterruptedException, ExecutionException {
         ParticipatingCars participatingCars = new ParticipatingCars(carNames);
 
-        ExecutorService es = Executors.newFixedThreadPool(4);
+        ExecutorService es = Executors.newFixedThreadPool(8);
 
-        ConcurrentTurnRunner concurrentTurnRunner = new ConcurrentTurnRunner(pickRandomValue, participatingCars, es);
+        ConcurrentTurnRunner concurrentTurnRunner = new ConcurrentTurnRunner(ai, participatingCars, es);
 
         Attempts attempts = new Attempts(attemptsInput);
 
