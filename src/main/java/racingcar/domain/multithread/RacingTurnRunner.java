@@ -4,32 +4,31 @@ package racingcar.domain.multithread;
 import java.util.concurrent.Callable;
 import racingcar.domain.Car;
 import racingcar.domain.CarPosition;
-import racingcar.domain.port.PickRandomValue;
-import racingcar.util.CpuWork;
+import racingcar.domain.ParticipatingCars;
+import racingcar.domain.strategy.Strategy;
+import racingcar.domain.strategy.StrategyAi;
 
 public class RacingTurnRunner implements Callable<CarPosition> {
 
     private static final int MOVE_THRESHOLD = 4;
 
     private final Car car;
-    private final PickRandomValue pickRandomValue;
+    private final StrategyAi ai;
+    private final ParticipatingCars cars;
+    private final int remainTurns;
 
-
-    public RacingTurnRunner(Car car,PickRandomValue pickRandomValue) {
+    public RacingTurnRunner(Car car, StrategyAi ai, ParticipatingCars cars, int remainTurns) {
         this.car = car;
-        this.pickRandomValue = pickRandomValue;
+        this.ai = ai;
+        this.cars = cars;
+        this.remainTurns = remainTurns;
     }
 
 
     @Override
     public CarPosition call() {
-        int randomValue = pickRandomValue.pickRandomNumber();
-
-        CpuWork.heavyWork(); // 더미 연산
-
-        if (randomValue >= MOVE_THRESHOLD) {
-            car.moveForward();
-        }
+        Strategy strategy = ai.decideBestStrategy(car, cars.getCars(), remainTurns);
+        car.moveAccordingTo(strategy);
         return new CarPosition(car.getName(), car.getPosition());
     }
 }
