@@ -1,6 +1,7 @@
 package racingcar.domain.strategy;
 
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 import racingcar.domain.Car;
 
 public class StrategyAi {
@@ -43,17 +44,18 @@ public class StrategyAi {
         for (int r = 0; r < remainTurns; r++) {
             myPos += simulateMove(s);
 
-            maxOther += (int) (Math.random() * 2);
+            maxOther += ThreadLocalRandom.current().nextInt(2);
         }
 
         return myPos >= maxOther;
     }
 
     public static int simulateMove(Strategy s) {
+        double r = ThreadLocalRandom.current().nextDouble();
         return switch (s) {
-            case AGGRESSIVE -> Math.random() < 0.6 ? 2 : 0;
-            case NORMAL -> Math.random() < 0.5 ? 1 : 0;
-            case SAFE -> Math.random() < 0.8 ? 1 : 0;
+            case AGGRESSIVE -> r < 0.6 ? 2 : 0;
+            case NORMAL -> r < 0.5 ? 1 : 0;
+            case SAFE -> r < 0.8 ? 1 : 0;
         };
     }
 
