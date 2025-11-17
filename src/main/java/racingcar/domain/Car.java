@@ -17,8 +17,7 @@ public class Car {
     }
 
     public void moveAccordingTo(Strategy strategy) {
-        int step = StrategyAi.simulateMove(strategy);
-        this.position += step;
+        this.position += strategy.move();
     }
 
     private void validateLength(String name) {

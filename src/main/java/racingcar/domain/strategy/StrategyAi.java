@@ -8,7 +8,6 @@ public class StrategyAi {
 
     private final int simulationCount;
 
-
     public StrategyAi(int simulationCount) {
         this.simulationCount = simulationCount;
     }
@@ -42,21 +41,10 @@ public class StrategyAi {
         int maxOther = all.stream().mapToInt(Car::getPosition).max().orElse(0);
 
         for (int r = 0; r < remainTurns; r++) {
-            myPos += simulateMove(s);
-
+            myPos += s.move();
             maxOther += ThreadLocalRandom.current().nextInt(2);
         }
-
         return myPos >= maxOther;
-    }
-
-    public static int simulateMove(Strategy s) {
-        double r = ThreadLocalRandom.current().nextDouble();
-        return switch (s) {
-            case AGGRESSIVE -> r < 0.6 ? 2 : 0;
-            case NORMAL -> r < 0.5 ? 1 : 0;
-            case SAFE -> r < 0.8 ? 1 : 0;
-        };
     }
 
 }
