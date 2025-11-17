@@ -1,4 +1,4 @@
-package racingcar.domain.multithread;
+package racingcar.application.turn;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +12,7 @@ import racingcar.domain.CarPosition;
 import racingcar.domain.ParticipatingCars;
 import racingcar.domain.strategy.StrategyAi;
 
-public class ConcurrentTurnRunner {
+public class ConcurrentTurnRunner implements TurnRunner {
 
     private final StrategyAi ai;
     private final ParticipatingCars cars;
@@ -24,19 +24,22 @@ public class ConcurrentTurnRunner {
         this.es = es;
     }
 
-
-    public RoundResult concurrentTurnRunner(int remainTurns)
+    @Override
+    public RoundResult run(int remainTurns)
             throws InterruptedException, ExecutionException {
 
+        List<Future<CarPosition>> futures = es.invokeAll(getTasks(remainTurns));
+        return resultOneTime(futures);
+    }
+
+    private List<Callable<CarPosition>> getTasks(int remainTurns) {
         List<Callable<CarPosition>> tasks = new ArrayList<>();
 
         for (Car car : cars.getCars()) {
-            ConcurrentTask turnRunner = new ConcurrentTask(car, ai, cars, remainTurns);
+            ConcurrentTurnTask turnRunner = new ConcurrentTurnTask(car, ai, cars, remainTurns);
             tasks.add(turnRunner);
         }
-
-        List<Future<CarPosition>> futures = es.invokeAll(tasks);
-        return resultOneTime(futures);
+        return tasks;
     }
 
     private static  RoundResult resultOneTime(List<Future<CarPosition>> futures) throws ExecutionException, InterruptedException {

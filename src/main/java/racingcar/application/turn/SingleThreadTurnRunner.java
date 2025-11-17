@@ -1,4 +1,4 @@
-package racingcar.domain.singlethread;
+package racingcar.application.turn;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +9,7 @@ import racingcar.domain.ParticipatingCars;
 import racingcar.domain.strategy.Strategy;
 import racingcar.domain.strategy.StrategyAi;
 
-public class SingleThreadTurnRunner {
+public class SingleThreadTurnRunner implements TurnRunner {
 
     private final ParticipatingCars cars;
     private final StrategyAi ai;
@@ -19,7 +19,8 @@ public class SingleThreadTurnRunner {
         this.ai = ai;
     }
 
-    public RoundResult runOneTime(int remainTurns) {
+    @Override
+    public RoundResult run(int remainTurns) {
         for (Car car : cars.getCars()) {
             operate(car,remainTurns);
         }
