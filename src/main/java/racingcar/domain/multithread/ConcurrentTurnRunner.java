@@ -6,7 +6,7 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
-import racingcar.application.dto.RoundResult;
+import racingcar.domain.RoundResult;
 import racingcar.domain.Car;
 import racingcar.domain.CarPosition;
 import racingcar.domain.ParticipatingCars;
@@ -31,7 +31,7 @@ public class ConcurrentTurnRunner {
         List<Callable<CarPosition>> tasks = new ArrayList<>();
 
         for (Car car : cars.getCars()) {
-            RacingTurnRunner turnRunner = new RacingTurnRunner(car, ai, cars, remainTurns);
+            ConcurrentTask turnRunner = new ConcurrentTask(car, ai, cars, remainTurns);
             tasks.add(turnRunner);
         }
 

@@ -4,12 +4,12 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import racingcar.application.dto.RoundResult;
+import racingcar.domain.RoundResult;
 import racingcar.domain.Attempts;
 import racingcar.domain.multithread.ConcurrentTurnRunner;
 import racingcar.domain.ParticipatingCars;
 import racingcar.domain.strategy.StrategyAi;
-import racingcar.service.multithread.MultiThreadGameEngine;
+import racingcar.application.multithread.MultiThreadGameEngine;
 
 public class StartRacingUseCase {
 

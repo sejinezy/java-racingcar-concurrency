@@ -1,7 +1,6 @@
-package racingcar.application.dto;
+package racingcar.domain;
 
 import java.util.List;
-import racingcar.domain.CarPosition;
 
 public record RoundResult(List<CarPosition> positions) {
     public RoundResult{

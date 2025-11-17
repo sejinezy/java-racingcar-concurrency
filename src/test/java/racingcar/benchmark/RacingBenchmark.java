@@ -1,4 +1,4 @@
-package racingcar;
+package racingcar.benchmark;
 
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -9,8 +9,8 @@ import racingcar.domain.multithread.ConcurrentTurnRunner;
 import racingcar.domain.ParticipatingCars;
 import racingcar.domain.singlethread.SingleThreadTurnRunner;
 import racingcar.domain.strategy.StrategyAi;
-import racingcar.service.multithread.MultiThreadGameEngine;
-import racingcar.service.singlethread.SingleThreadGameEngine;
+import racingcar.application.multithread.MultiThreadGameEngine;
+import racingcar.application.singlethread.SingleThreadGameEngine;
 
 public class RacingBenchmark {
 
@@ -31,10 +31,7 @@ public class RacingBenchmark {
         StrategyAi singleAi = new StrategyAi(5000);
         StrategyAi multiAi = new StrategyAi(5000);
 
-        // 싱글 스레드 벤치 마크
         long singleAvg = benchmarkSingleThread(singleCars, attempts, singleAi);
-
-        // 멀티 스레드 벤치 마크
         long concurrentAvg = benchmarkMultiThread(concurrentCars, attempts, multiAi);
 
         System.out.println("=== Result (avg, millis) ===");
@@ -50,12 +47,10 @@ public class RacingBenchmark {
         SingleThreadTurnRunner runner = new SingleThreadTurnRunner(cars, ai);
         SingleThreadGameEngine engine = new SingleThreadGameEngine();
 
-        //워밍업
         for (int i = 0; i < WARMUP; i++) {
             engine.runAll(attempts, runner);
         }
 
-        //측정
         long total = 0;
         for (int i = 0; i < MEASURE; i++) {
             long start = System.nanoTime();
@@ -76,12 +71,10 @@ public class RacingBenchmark {
         ConcurrentTurnRunner concurrentTurnRunner = new ConcurrentTurnRunner(ai,cars,es);
         MultiThreadGameEngine gameEngine = new MultiThreadGameEngine();
 
-        // 워밍업
         for (int i = 0; i < WARMUP; i++) {
             gameEngine.runAll(attempts, concurrentTurnRunner);
         }
 
-        // 측정
         long total = 0;
         for (int i = 0; i < MEASURE; i++) {
             long start = System.nanoTime();

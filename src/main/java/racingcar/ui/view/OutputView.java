@@ -1,8 +1,8 @@
-package racingcar.view;
+package racingcar.ui.view;
 
 import java.util.List;
 import racingcar.domain.CarPosition;
-import racingcar.application.dto.RoundResult;
+import racingcar.domain.RoundResult;
 
 public class OutputView {
 

@@ -1,13 +1,13 @@
-package racingcar;
+package racingcar.ui.controller;
 
-import static racingcar.view.InputParser.*;
+import static racingcar.ui.view.InputParser.*;
 
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import racingcar.application.StartRacingUseCase;
-import racingcar.application.dto.RoundResult;
-import racingcar.view.InputView;
-import racingcar.view.OutputView;
+import racingcar.domain.RoundResult;
+import racingcar.ui.view.InputView;
+import racingcar.ui.view.OutputView;
 
 public class GameController {
 

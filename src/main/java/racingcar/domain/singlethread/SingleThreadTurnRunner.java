@@ -2,7 +2,7 @@ package racingcar.domain.singlethread;
 
 import java.util.ArrayList;
 import java.util.List;
-import racingcar.application.dto.RoundResult;
+import racingcar.domain.RoundResult;
 import racingcar.domain.Car;
 import racingcar.domain.CarPosition;
 import racingcar.domain.ParticipatingCars;
@@ -11,8 +11,6 @@ import racingcar.domain.strategy.StrategyAi;
 
 public class SingleThreadTurnRunner {
 
-    private static final int MOVE_THRESHOLD = 4;
-
     private final ParticipatingCars cars;
     private final StrategyAi ai;
 
@@ -20,7 +18,6 @@ public class SingleThreadTurnRunner {
         this.cars = cars;
         this.ai = ai;
     }
-
 
     public RoundResult runOneTime(int remainTurns) {
         for (Car car : cars.getCars()) {

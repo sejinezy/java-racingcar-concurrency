@@ -8,16 +8,14 @@ import racingcar.domain.ParticipatingCars;
 import racingcar.domain.strategy.Strategy;
 import racingcar.domain.strategy.StrategyAi;
 
-public class RacingTurnRunner implements Callable<CarPosition> {
-
-    private static final int MOVE_THRESHOLD = 4;
+public class ConcurrentTask implements Callable<CarPosition> {
 
     private final Car car;
     private final StrategyAi ai;
     private final ParticipatingCars cars;
     private final int remainTurns;
 
-    public RacingTurnRunner(Car car, StrategyAi ai, ParticipatingCars cars, int remainTurns) {
+    public ConcurrentTask(Car car, StrategyAi ai, ParticipatingCars cars, int remainTurns) {
         this.car = car;
         this.ai = ai;
         this.cars = cars;

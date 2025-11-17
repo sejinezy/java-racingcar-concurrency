@@ -1,7 +1,7 @@
 package racingcar.view;
 
 import static org.assertj.core.api.Assertions.*;
-import static racingcar.view.InputParser.*;
+import static racingcar.ui.view.InputParser.*;
 
 import java.util.List;
 import org.junit.jupiter.api.Test;
