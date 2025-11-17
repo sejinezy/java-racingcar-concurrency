@@ -4,7 +4,7 @@ import static racingcar.ui.view.InputParser.*;
 
 import java.util.List;
 import java.util.concurrent.ExecutionException;
-import racingcar.application.StartRacingUseCase;
+import racingcar.application.usecase.StartRacingUseCase;
 import racingcar.domain.RoundResult;
 import racingcar.ui.view.InputView;
 import racingcar.ui.view.OutputView;
