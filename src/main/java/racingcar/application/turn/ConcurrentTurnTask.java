@@ -1,4 +1,4 @@
-package racingcar.domain.multithread;
+package racingcar.application.turn;
 
 
 import java.util.concurrent.Callable;
@@ -8,20 +8,19 @@ import racingcar.domain.ParticipatingCars;
 import racingcar.domain.strategy.Strategy;
 import racingcar.domain.strategy.StrategyAi;
 
-public class ConcurrentTask implements Callable<CarPosition> {
+public class ConcurrentTurnTask implements Callable<CarPosition> {
 
     private final Car car;
     private final StrategyAi ai;
     private final ParticipatingCars cars;
     private final int remainTurns;
 
-    public ConcurrentTask(Car car, StrategyAi ai, ParticipatingCars cars, int remainTurns) {
+    public ConcurrentTurnTask(Car car, StrategyAi ai, ParticipatingCars cars, int remainTurns) {
         this.car = car;
         this.ai = ai;
         this.cars = cars;
         this.remainTurns = remainTurns;
     }
-
 
     @Override
     public CarPosition call() {
