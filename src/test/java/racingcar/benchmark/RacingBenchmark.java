@@ -5,12 +5,12 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import racingcar.domain.Attempts;
-import racingcar.domain.multithread.ConcurrentTurnRunner;
+import racingcar.application.turn.ConcurrentTurnRunner;
 import racingcar.domain.ParticipatingCars;
-import racingcar.domain.singlethread.SingleThreadTurnRunner;
+import racingcar.application.turn.SingleThreadTurnRunner;
 import racingcar.domain.strategy.StrategyAi;
-import racingcar.application.multithread.MultiThreadGameEngine;
-import racingcar.application.singlethread.SingleThreadGameEngine;
+import racingcar.application.engine.MultiThreadGameEngine;
+import racingcar.application.engine.SingleThreadGameEngine;
 
 public class RacingBenchmark {
 
@@ -42,7 +42,7 @@ public class RacingBenchmark {
 
     private static long benchmarkSingleThread(ParticipatingCars cars,
                                               Attempts attempts,
-                                              StrategyAi ai) {
+                                              StrategyAi ai) throws ExecutionException, InterruptedException {
 
         SingleThreadTurnRunner runner = new SingleThreadTurnRunner(cars, ai);
         SingleThreadGameEngine engine = new SingleThreadGameEngine();
