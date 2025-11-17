@@ -2,22 +2,23 @@ package racingcar;
 
 
 import java.util.concurrent.ExecutionException;
-import racingcar.application.StartRacingUseCase;
+import racingcar.application.engine.GameEngine;
+import racingcar.application.usecase.StartRacingUseCase;
 import racingcar.ui.controller.GameController;
 import racingcar.domain.strategy.StrategyAi;
-import racingcar.application.multithread.MultiThreadGameEngine;
+import racingcar.application.engine.MultiThreadGameEngine;
 import racingcar.ui.view.InputView;
 import racingcar.ui.view.OutputView;
 
 public class Application {
-    public static void main(String[] args) {
+    private static final int SIMULATION_COUNT = 2000;
 
+    public static void main(String[] args) {
         InputView inputView = new InputView();
-        StrategyAi ai = new StrategyAi(2000);
-        MultiThreadGameEngine gameEngine = new MultiThreadGameEngine();
+        StrategyAi ai = new StrategyAi(SIMULATION_COUNT);
+        GameEngine gameEngine = new MultiThreadGameEngine();
         OutputView outputView = new OutputView();
         StartRacingUseCase startRacingUseCase = new StartRacingUseCase(ai, gameEngine);
-
         GameController gameController = new GameController(inputView, startRacingUseCase, outputView);
 
         try {
