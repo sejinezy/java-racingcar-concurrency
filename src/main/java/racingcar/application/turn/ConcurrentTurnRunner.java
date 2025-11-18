@@ -25,14 +25,20 @@ public class ConcurrentTurnRunner implements TurnRunner {
     }
 
     @Override
-    public RoundResult run(int remainTurns)
-            throws InterruptedException, ExecutionException {
-
-        List<Future<CarPosition>> futures = es.invokeAll(getTasks(remainTurns));
-        return resultOneTime(futures);
+    public RoundResult run(int remainTurns) {
+        try {
+            List<Callable<CarPosition>> tasks = createTasks(remainTurns);
+            List<Future<CarPosition>> futures = es.invokeAll(tasks);
+            return resultOneTime(futures);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            throw new RuntimeException("레이스가 인터럽트 되었습니다.", e);
+        } catch (ExecutionException e) {
+            throw new RuntimeException("레이스 작업 중 예외 발생", e.getCause());
+        }
     }
 
-    private List<Callable<CarPosition>> getTasks(int remainTurns) {
+    private List<Callable<CarPosition>> createTasks(int remainTurns) {
         List<Callable<CarPosition>> tasks = new ArrayList<>();
 
         for (Car car : cars.getCars()) {
