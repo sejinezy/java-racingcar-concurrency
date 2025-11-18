@@ -21,10 +21,6 @@ public class Application {
         StartRacingUseCase startRacingUseCase = new StartRacingUseCase(ai, gameEngine);
         GameController gameController = new GameController(inputView, startRacingUseCase, outputView);
 
-        try {
-            gameController.run();
-        } catch (ExecutionException | InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        gameController.run();
     }
 }

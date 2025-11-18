@@ -24,9 +24,7 @@ public class StartRacingUseCase {
         this.gameEngine = gameEngine;
     }
 
-    public List<RoundResult> execute(List<String> carNames, String attemptsInput)
-            throws InterruptedException, ExecutionException {
-
+    public List<RoundResult> execute(List<String> carNames, String attemptsInput) {
         ParticipatingCars participatingCars = new ParticipatingCars(carNames);
         ExecutorService es = Executors.newFixedThreadPool(THREADS);
         TurnRunner concurrentTurnRunner = new ConcurrentTurnRunner(ai, participatingCars, es);

@@ -2,7 +2,6 @@ package racingcar.application.engine;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 import racingcar.domain.Attempts;
 import racingcar.domain.CarPosition;
 import racingcar.application.turn.TurnRunner;
@@ -11,8 +10,7 @@ import racingcar.domain.RoundResult;
 public class MultiThreadGameEngine implements GameEngine {
 
     @Override
-    public List<RoundResult> runAll(Attempts attempts, TurnRunner concurrentTurnRunner)
-            throws ExecutionException, InterruptedException {
+    public List<RoundResult> runAll(Attempts attempts, TurnRunner concurrentTurnRunner) {
 
         List<RoundResult> gameResults = new ArrayList<>();
         for (int i = 0; i < attempts.getNumber(); i++) {
