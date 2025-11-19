@@ -14,6 +14,9 @@ import racingcar.domain.strategy.StrategyAi;
 
 public class ConcurrentTurnRunner implements TurnRunner {
 
+    private static final String ERR_INTERRUPT = "레이스가 인터럽트 되었습니다.";
+    private static final String ERR_EXECUTION = "레이스 작업 중 예외 발생";
+
     private final StrategyAi ai;
     private final ParticipatingCars cars;
     private final ExecutorService es;
@@ -30,11 +33,13 @@ public class ConcurrentTurnRunner implements TurnRunner {
             List<Callable<CarPosition>> tasks = createTasks(remainTurns);
             List<Future<CarPosition>> futures = es.invokeAll(tasks);
             return resultOneTime(futures);
+
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
-            throw new RuntimeException("레이스가 인터럽트 되었습니다.", e);
+            throw new RuntimeException(ERR_INTERRUPT, e);
+
         } catch (ExecutionException e) {
-            throw new RuntimeException("레이스 작업 중 예외 발생", e.getCause());
+            throw new RuntimeException(ERR_EXECUTION, e.getCause());
         }
     }
 
