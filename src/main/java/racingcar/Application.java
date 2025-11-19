@@ -22,18 +22,17 @@ public class Application {
 
     public static void main(String[] args) {
         ExecutorService es = Executors.newFixedThreadPool(THREADS);
+        InputView inputView = new InputView();
+        StrategyAi ai = new StrategyAi(SIMULATION_COUNT);
+        GameEngine gameEngine = new MultiThreadGameEngine();
+        OutputView outputView = new OutputView();
+        StartRacingUseCase startRacingUseCase = new StartRacingUseCase(ai, gameEngine, es);
+        GameController gameController = new GameController(inputView, startRacingUseCase, outputView);
 
         try {
-            InputView inputView = new InputView();
-            StrategyAi ai = new StrategyAi(SIMULATION_COUNT);
-            GameEngine gameEngine = new MultiThreadGameEngine();
-            OutputView outputView = new OutputView();
-            StartRacingUseCase startRacingUseCase = new StartRacingUseCase(ai, gameEngine, es);
-            GameController gameController = new GameController(inputView, startRacingUseCase, outputView);
-
             gameController.run();
         } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
+            outputView.printErrorMessage(e.getMessage());
         } finally {
             shutdownAndAwaitTermination(es);
         }

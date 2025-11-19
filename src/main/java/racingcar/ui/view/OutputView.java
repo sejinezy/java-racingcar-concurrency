@@ -11,6 +11,7 @@ public class OutputView {
     private static final String WINNER = "최종 우승자 : ";
     private static final String RESULT_ENTRY_DELIMITER = " : ";
     private static final String WINNER_DELIMITER = ", ";
+    private static final String ERROR_MESSAGE_PREFIX = "[ERROR] ";
 
     public void printResult(RoundResult result) {
 
@@ -29,6 +30,10 @@ public class OutputView {
     public void printWinner(List<String> winnerNames) {
         System.out.print(WINNER);
         System.out.println(String.join(WINNER_DELIMITER, winnerNames));
+    }
+
+    public void printErrorMessage(String message) {
+        System.out.println(ERROR_MESSAGE_PREFIX + message);
     }
 }
 
