@@ -1,7 +1,6 @@
 package racingcar.domain;
 
 import racingcar.domain.strategy.Strategy;
-import racingcar.domain.strategy.StrategyAi;
 
 public class Car {
 

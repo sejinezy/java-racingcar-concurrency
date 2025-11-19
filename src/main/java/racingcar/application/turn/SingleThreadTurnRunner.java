@@ -22,12 +22,12 @@ public class SingleThreadTurnRunner implements TurnRunner {
     @Override
     public RoundResult run(int remainTurns) {
         for (Car car : cars.getCars()) {
-            operate(car,remainTurns);
+            operate(car, remainTurns);
         }
         return resultOneTime();
     }
 
-    private void operate(Car car,int remainTurns) {
+    private void operate(Car car, int remainTurns) {
         Strategy strategy = ai.decideBestStrategy(car, cars.getCars(), remainTurns);
         car.moveAccordingTo(strategy);
     }

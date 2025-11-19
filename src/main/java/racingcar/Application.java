@@ -39,7 +39,7 @@ public class Application {
         }
     }
 
-    private static void shutdownAndAwaitTermination(ExecutorService es){
+    private static void shutdownAndAwaitTermination(ExecutorService es) {
         es.shutdown();
 
         try {
@@ -52,7 +52,7 @@ public class Application {
                     System.out.println(SHUTDOWN_STAGE3_UNTERMINATED);
                 }
             }
-        } catch (InterruptedException ex){
+        } catch (InterruptedException ex) {
             es.shutdownNow();
             Thread.currentThread().interrupt();
         }

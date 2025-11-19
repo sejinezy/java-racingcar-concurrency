@@ -21,7 +21,7 @@ public class GameController {
         this.outputView = outputView;
     }
 
-    public void run(){
+    public void run() {
         List<String> carNames = parseValidatedCarNames(inputView.carNamesReadLine());
         String attemptsInput = validateBlank(inputView.numberReadLine());
 

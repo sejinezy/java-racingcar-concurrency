@@ -14,7 +14,7 @@ public class MultiThreadGameEngine implements GameEngine {
 
         List<RoundResult> gameResults = new ArrayList<>();
         for (int i = 0; i < attempts.getNumber(); i++) {
-            gameResults.add(concurrentTurnRunner.run(attempts.getNumber()-i));
+            gameResults.add(concurrentTurnRunner.run(attempts.getNumber() - i));
         }
         return gameResults;
     }

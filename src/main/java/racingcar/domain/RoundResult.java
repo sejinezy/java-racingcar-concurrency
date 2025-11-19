@@ -3,7 +3,7 @@ package racingcar.domain;
 import java.util.List;
 
 public record RoundResult(List<CarPosition> positions) {
-    public RoundResult{
+    public RoundResult {
         positions = List.copyOf(positions);
     }
 }

@@ -15,7 +15,8 @@ public class OutputView {
     public void printResult(RoundResult result) {
 
         for (CarPosition participatedCar : result.positions()) {
-            System.out.println(participatedCar.name() + RESULT_ENTRY_DELIMITER + CAR_POSITION_MARKER.repeat(participatedCar.position()));
+            System.out.println(participatedCar.name() + RESULT_ENTRY_DELIMITER + CAR_POSITION_MARKER.repeat(
+                    participatedCar.position()));
         }
         System.out.println();
 

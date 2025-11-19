@@ -53,7 +53,8 @@ public class ConcurrentTurnRunner implements TurnRunner {
         return tasks;
     }
 
-    private static  RoundResult resultOneTime(List<Future<CarPosition>> futures) throws ExecutionException, InterruptedException {
+    private static RoundResult resultOneTime(List<Future<CarPosition>> futures)
+            throws ExecutionException, InterruptedException {
         List<CarPosition> gameResult = new ArrayList<>();
 
         for (Future<CarPosition> future : futures) {
