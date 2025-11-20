@@ -1,23 +1,24 @@
 package racingcar.benchmark;
 
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import racingcar.domain.Attempts;
 import racingcar.application.turn.ConcurrentTurnRunner;
 import racingcar.domain.ParticipatingCars;
 import racingcar.application.turn.SingleThreadTurnRunner;
+import racingcar.domain.strategy.DefaultWinRateCalculator;
 import racingcar.domain.strategy.StrategyAi;
 import racingcar.application.engine.MultiThreadGameEngine;
 import racingcar.application.engine.SingleThreadGameEngine;
+import racingcar.domain.strategy.WinRateCalculator;
 
 public class RacingBenchmark {
 
     private static final int WARMUP = 3;
     private static final int MEASURE = 5;
 
-    public static void main(String[] args) throws ExecutionException, InterruptedException {
+    public static void main(String[] args) {
         List<String> carNames = List.of("car1", "car2", "car3", "car4", "car5", "car6", "car7", "car8",
                 "car9", "car10", "car11", "car12", "car13", "car14", "car15", "car16",
                 "car17", "car18", "car19", "car20", "car21", "car22", "car23", "car24",
@@ -28,8 +29,11 @@ public class RacingBenchmark {
         ParticipatingCars singleCars = new ParticipatingCars(carNames);
         ParticipatingCars concurrentCars = new ParticipatingCars(carNames);
 
-        StrategyAi singleAi = new StrategyAi(5000);
-        StrategyAi multiAi = new StrategyAi(5000);
+        WinRateCalculator singleWinRateCalculator = new DefaultWinRateCalculator(5000);
+        WinRateCalculator doubleWinRateCalculator = new DefaultWinRateCalculator(5000);
+
+        StrategyAi singleAi = new StrategyAi(singleWinRateCalculator);
+        StrategyAi multiAi = new StrategyAi(doubleWinRateCalculator);
 
         long singleAvg = benchmarkSingleThread(singleCars, attempts, singleAi);
         long concurrentAvg = benchmarkMultiThread(concurrentCars, attempts, multiAi);
@@ -42,7 +46,7 @@ public class RacingBenchmark {
 
     private static long benchmarkSingleThread(ParticipatingCars cars,
                                               Attempts attempts,
-                                              StrategyAi ai) throws ExecutionException, InterruptedException {
+                                              StrategyAi ai) {
 
         SingleThreadTurnRunner runner = new SingleThreadTurnRunner(cars, ai);
         SingleThreadGameEngine engine = new SingleThreadGameEngine();
@@ -65,7 +69,7 @@ public class RacingBenchmark {
 
     private static long benchmarkMultiThread(ParticipatingCars cars,
                                              Attempts attempts,
-                                             StrategyAi ai) throws ExecutionException, InterruptedException {
+                                             StrategyAi ai) {
 
         ExecutorService es = Executors.newFixedThreadPool(8);
         ConcurrentTurnRunner concurrentTurnRunner = new ConcurrentTurnRunner(ai,cars,es);

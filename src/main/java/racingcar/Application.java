@@ -5,6 +5,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import racingcar.application.engine.GameEngine;
 import racingcar.application.usecase.StartRacingUseCase;
+import racingcar.domain.strategy.DefaultWinRateCalculator;
+import racingcar.domain.strategy.WinRateCalculator;
 import racingcar.ui.controller.GameController;
 import racingcar.domain.strategy.StrategyAi;
 import racingcar.application.engine.MultiThreadGameEngine;
@@ -23,7 +25,8 @@ public class Application {
     public static void main(String[] args) {
         ExecutorService es = Executors.newFixedThreadPool(THREADS);
         InputView inputView = new InputView();
-        StrategyAi ai = new StrategyAi(SIMULATION_COUNT);
+        WinRateCalculator winRateCalculator = new DefaultWinRateCalculator(SIMULATION_COUNT);
+        StrategyAi ai = new StrategyAi(winRateCalculator);
         GameEngine gameEngine = new MultiThreadGameEngine();
         OutputView outputView = new OutputView();
         StartRacingUseCase startRacingUseCase = new StartRacingUseCase(ai, gameEngine, es);
