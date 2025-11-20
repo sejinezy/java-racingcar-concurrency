@@ -3,38 +3,29 @@ package racingcar.domain.strategy;
 import java.util.concurrent.ThreadLocalRandom;
 
 public enum Strategy {
-    AGGRESSIVE {
-        @Override
-        public int move() {
-            double r = ThreadLocalRandom.current().nextDouble();
-            if (r < 0.6) {
-                return 2;
-            }
-            return 0;
-        }
-    },
+    AGGRESSIVE(0.6,2),
+    NORMAL(0.5,1),
+    SAFE(0.8, 1);
 
-    NORMAL {
-        @Override
-        public int move() {
-            double r = ThreadLocalRandom.current().nextDouble();
-            if (r < 0.5) {
-                return 1;
-            }
-            return 0;
-        }
-    },
+    private static final int NO_MOVE = 0;
 
-    SAFE {
-        @Override
-        public int move() {
-            double r = ThreadLocalRandom.current().nextDouble();
-            if (r < 0.8) {
-                return 1;
-            }
-            return 0;
-        }
-    };
+    private final double successThreshold;
+    private final int moveDistance;
 
-    public abstract int move();
+    Strategy(double successThreshold, int moveDistance) {
+        this.successThreshold = successThreshold;
+        this.moveDistance = moveDistance;
+    }
+
+    public int move() {
+        double r = ThreadLocalRandom.current().nextDouble();
+        return decideMove(r);
+    }
+
+    int decideMove(double randomValue) {
+        if (randomValue < successThreshold) {
+            return moveDistance;
+        }
+        return NO_MOVE;
+    }
 }
